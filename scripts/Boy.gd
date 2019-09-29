@@ -4,14 +4,12 @@ func _ready():
 	set_process_input(true)
 	
 func _input(event):	
-	print("FORA: ")
+
 	if(event.is_action_pressed("touch")):
-		print("IF DENTRO: ")
 		on_touch()
 
 func on_touch():
-	print("ON TOUCH: ")
 	apply_impulse(Vector2(0, 0), Vector2(0, -1000))
-	print("POS TOUCH: ")
+
 	
 	
