@@ -121,6 +121,9 @@ z_index = 1
 z_as_relative = false
 frames = SubResource( 2 )
 animation = "Jump"
-frame = 2
+frame = 11
 playing = true
 centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true

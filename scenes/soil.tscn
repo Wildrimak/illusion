@@ -1,75 +1,171 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scripts/soil.gd" type="Script" id=1]
-[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-l.png" type="Texture" id=2]
-[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-m.png" type="Texture" id=3]
-[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-r.png" type="Texture" id=4]
-[ext_resource path="res://images/scenery/floor/effective-ground/m-eg-l.png" type="Texture" id=5]
-[ext_resource path="res://images/scenery/floor/effective-ground/mb-eg-m.png" type="Texture" id=6]
-[ext_resource path="res://images/scenery/floor/effective-ground/m-eg-r.png" type="Texture" id=7]
-[ext_resource path="res://images/scenery/floor/effective-ground/b-eg-l.png" type="Texture" id=8]
-[ext_resource path="res://images/scenery/floor/effective-ground/b-eg-r.png" type="Texture" id=9]
+[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-l.png" type="Texture" id=1]
+[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-m.png" type="Texture" id=2]
+[ext_resource path="res://images/scenery/floor/effective-ground/t-eg-r.png" type="Texture" id=3]
+[ext_resource path="res://images/scenery/floor/effective-ground/m-eg-l.png" type="Texture" id=4]
+[ext_resource path="res://images/scenery/floor/effective-ground/mb-eg-m.png" type="Texture" id=5]
+[ext_resource path="res://images/scenery/floor/effective-ground/m-eg-r.png" type="Texture" id=6]
+[ext_resource path="res://images/scenery/floor/effective-ground/b-eg-l.png" type="Texture" id=7]
+[ext_resource path="res://images/scenery/floor/effective-ground/b-eg-r.png" type="Texture" id=8]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 188.362, 183.065 )
+[sub_resource type="GDScript" id=3]
+script/source = "extends RigidBody2D
 
-[node name="RigidBody2D" type="RigidBody2D"]
-z_as_relative = false
-mode = 2
-script = ExtResource( 1 )
+export var speed = -10
+var velocity = Vector2()
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 95, 99 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 1 )
+func _ready():
+	set_process(true)
+	
+func movit():
+	
+	$Sprite.position.x += speed
+	velocity = Vector2()
+	velocity = velocity.normalized() * speed
+	
+	if $Sprite.position.x < -129:
+		$Sprite.position.x = 1920	
 
-[node name="Sprite" type="Sprite" parent="."]
+func _physics_process(delta):
+    movit()"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.7673, 32.2153 )
+
+[node name="Node" type="Node"]
+script = SubResource( 3 )
+
+[node name="t-eg-l" type="Sprite" parent="."]
 editor/display_folded = true
 scale = Vector2( 0.5, 0.5 )
-z_index = 1
-z_as_relative = false
+texture = ExtResource( 1 )
 centered = false
 
-[node name="t-eg-l" type="Sprite" parent="Sprite"]
+[node name="StaticBody2D" type="StaticBody2D" parent="t-eg-l"]
+editor/display_folded = true
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="t-eg-l/StaticBody2D"]
+position = Vector2( 31.7827, 32.3699 )
+shape = SubResource( 2 )
+
+[node name="t-eg-m" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 64, 0 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="t-eg-m" type="Sprite" parent="Sprite"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="t-eg-m"]
+position = Vector2( -128, 0 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="t-eg-m/StaticBody2D2"]
+position = Vector2( 95.5447, 32.3699 )
+shape = SubResource( 2 )
+
+[node name="t-eg-r" type="Sprite" parent="."]
+editor/display_folded = true
 position = Vector2( 128, 0 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="t-eg-r" type="Sprite" parent="Sprite"]
-position = Vector2( 256, 0 )
+[node name="StaticBody2D3" type="StaticBody2D" parent="t-eg-r"]
+position = Vector2( -256, 0 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="t-eg-r/StaticBody2D3"]
+position = Vector2( 158.766, 32.3699 )
+shape = SubResource( 2 )
+
+[node name="m-eg-l" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 64 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="m-eg-l" type="Sprite" parent="Sprite"]
-position = Vector2( 0, 128 )
+[node name="StaticBody2D4" type="StaticBody2D" parent="m-eg-l"]
+position = Vector2( 0, -128 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="m-eg-l/StaticBody2D4"]
+position = Vector2( 31.2139, 96.075 )
+shape = SubResource( 2 )
+
+[node name="m-eg-m" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 64, 64 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="m-eg-m" type="Sprite" parent="Sprite"]
-position = Vector2( 128, 128 )
+[node name="StaticBody2D5" type="StaticBody2D" parent="m-eg-m"]
+position = Vector2( -128, -128 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="m-eg-m/StaticBody2D5"]
+position = Vector2( 95.4878, 96.075 )
+shape = SubResource( 2 )
+
+[node name="m-eg-r" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 128, 64 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="m-eg-r" type="Sprite" parent="Sprite"]
-position = Vector2( 256, 128 )
+[node name="StaticBody2D6" type="StaticBody2D" parent="m-eg-r"]
+position = Vector2( -256, -128 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="m-eg-r/StaticBody2D6"]
+position = Vector2( 159.762, 95.5062 )
+shape = SubResource( 2 )
+
+[node name="b-eg-l" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 128 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 centered = false
 
-[node name="b-eg-l" type="Sprite" parent="Sprite"]
-position = Vector2( 0, 256 )
+[node name="StaticBody2D7" type="StaticBody2D" parent="b-eg-l"]
+position = Vector2( 0, -256 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="b-eg-l/StaticBody2D7"]
+position = Vector2( 31.7827, 160.075 )
+shape = SubResource( 2 )
+
+[node name="b-eg-m" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 64, 128 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="b-eg-m"]
+position = Vector2( -128, -256 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="b-eg-m/StaticBody2D8"]
+position = Vector2( 96.7798, 159.269 )
+shape = SubResource( 2 )
+
+[node name="b-eg-r" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 128, 128 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="b-eg-m" type="Sprite" parent="Sprite"]
-position = Vector2( 128, 256 )
-texture = ExtResource( 6 )
-centered = false
+[node name="StaticBody2D9" type="StaticBody2D" parent="b-eg-r"]
+position = Vector2( -256, -256 )
+scale = Vector2( 2, 2 )
 
-[node name="b-eg-r" type="Sprite" parent="Sprite"]
-position = Vector2( 256, 256 )
-texture = ExtResource( 9 )
-centered = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="b-eg-r/StaticBody2D9"]
+position = Vector2( 159.456, 160.043 )
+shape = SubResource( 2 )
