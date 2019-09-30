@@ -121,6 +121,6 @@ z_index = 1
 z_as_relative = false
 frames = SubResource( 2 )
 animation = "Jump"
-frame = 7
+frame = 2
 playing = true
 centered = false
