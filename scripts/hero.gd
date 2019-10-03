@@ -11,13 +11,17 @@ func _physics_process(delta):
 	motion.y += GRAVITY
 	
 	if Input.is_action_pressed("ui_right"):
-		motion.x = SPEED 
+		motion.x = SPEED
+		$AnimatedSprite.play("Walk")
+		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):
 		motion.x = -SPEED
+		$AnimatedSprite.flip_h = true
 	elif Input.is_action_pressed("ui_down"):
 		pass
 	else:
 		motion.x = 0
+		$AnimatedSprite.play("Idle")
 	
 	if is_on_floor():
 		if Input.is_action_pressed("ui_up"):
