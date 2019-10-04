@@ -1,10 +1,14 @@
 extends KinematicBody2D
 
+class_name Hero
+
 var motion = Vector2()
 const UP = Vector2(0, -1)
 const GRAVITY = 20 
 const SPEED = 700
 const JUMP_HEIGHT = -850
+
+
 
 
 func movement_on_floor():

@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Hero",
+"language": "GDScript",
+"path": "res://scripts/hero.gd"
+} ]
 _global_script_class_icons={
-
+"Hero": ""
 }
 
 [application]
